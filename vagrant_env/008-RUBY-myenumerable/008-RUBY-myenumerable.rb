@@ -59,7 +59,7 @@ class Range
     include MyEnumerable
 end
 
-[1,2,3,4].my_each { |i| puts i} # => 1 2 3 4
+[9,6,1,5].my_each { |i| puts i} # => 1 2 3 4
 [1,2,3,4].my_each { |i| puts i * 10 } # => 10 20 30 40
 
 # .any? { |obj| block } => true or false
