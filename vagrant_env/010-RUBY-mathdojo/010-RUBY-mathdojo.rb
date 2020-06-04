@@ -23,16 +23,12 @@ class MathDojo
     end
 
     def add *args
-        for i in (args[0].is_a?Array)?args[0]:args
-            @sumAll+=i
-        end
+        (args[0].is_a?Array)?args[0].each {|x| @sumAll+=x}:args.each {|x| @sumAll+=x}
         self
     end
 
     def sub *args
-        for i in (args[0].is_a?Array)?args[0]:args
-            @sumAll-=i
-        end
+        (args[0].is_a?Array)?args[0].each {|x| @sumAll-=x}:args.each {|x| @sumAll-=x}
         self
     end
 

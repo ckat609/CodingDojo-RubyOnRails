@@ -66,13 +66,17 @@ puts randomString(10)
 # Generate an array with 10 random strings that are each 5 characters long
 def randomStringArray(numStrings, numLength)
     aList = []
-    # aString = ""
-    # (0..numStrings-1).each{|y| aList.push((1..numLength).each{|x| aString+=(rand(65..90)).chr})}
-    for i in 0...numStrings
-        aString = ""
-        (1..numLength).each{|x| aString+=(rand(65..90)).chr}
-        aList[i] = aString
-    end
+    aString = ""
+    (0...numStrings).each{|y|
+        aList.push((0...numLength).each{|x| 
+        aString+=rand(65..90).chr
+        aString})
+    aString=""}
+    # for i in 0...numStrings
+    #     aString = ""
+    #     (1..numLength).each{|x| aString+=(rand(65..90)).chr}
+    #     aList[i] = aString
+    # end
     
     return aList.to_s
 end

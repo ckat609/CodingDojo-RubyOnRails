@@ -10,8 +10,8 @@ module MyEnumerable
             if yield self[i]
                 return true
             end
-            return false
         end
+        return false
     end
 
     def my_collect
@@ -65,6 +65,7 @@ end
 # .any? { |obj| block } => true or false
 # e.g. ruby ["ant", "bear", "cat"].any? { |word| word.length >= 3 } # => true ```
 puts ["ant", "bear", "cat"].my_any? { |word| word.length >= 3 }
+puts ["an", "br", "ct"].my_any? { |word| word.length >= 3 }
 
 # .collect { |obj| block } => returns a new array with the results of running block once for every element in enum
 # e.g. ruby (1..4).collect { |i| i*i } # => [1, 4, 9, 16]
