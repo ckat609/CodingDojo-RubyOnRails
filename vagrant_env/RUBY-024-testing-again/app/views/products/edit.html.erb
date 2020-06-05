@@ -1,0 +1,7 @@
+<h1>Edit</h1>
+<form action="/products/create" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="text" name="name" value="<%= @product.name %>">
+    <textarea name='description'><%= @product.description %></textarea>
+    <input type='submit' value='Create'>
+</form>
