@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  some_time: 2020-06-06 21:06:06
+
+two:
+  some_time: 2020-06-06 21:06:06
