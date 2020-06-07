@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="jumbotron">
+        <div class="alert alert-success"><h3><%= flash['success'] %></h3></div>
+        <h1 class="display-4">Submitted Information</h1>
+        <p class="lead">This is a simple survey.</p>
+        <hr class="my-4">
+        <p>Name: <%= @survey.first_name %> <%= @survey.last_name %></p>
+        <p>Dojo location: <%= @survey.dojo.city %>, <%= @survey.dojo.state %></p>
+        <p>Favorite language: <%= @survey.language.name %></p>
+        <p>Comment: <%= @survey.comment %></p>
+    </div>
+</div>

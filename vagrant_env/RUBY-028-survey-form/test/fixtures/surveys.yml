@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  favorite_language: MyString
+  references: MyString
+  dojo_location_id: 
+  comment: MyText
+
+two:
+  first_name: MyString
+  last_name: MyString
+  favorite_language: MyString
+  references: MyString
+  dojo_location_id: 
+  comment: MyText
