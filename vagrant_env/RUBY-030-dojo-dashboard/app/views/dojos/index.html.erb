@@ -1,4 +1,6 @@
 <div class="container">
+    <h1>Dojo list</h1>
+
     <% if flash[:success] %>
         <h6 class="alert alert-success">
             <ul>
@@ -6,7 +8,6 @@
             </ul>
         </h6>
     <% end %>
-    <h1>Dojo list</h1>
 
     <table class="table table-striped table-hover">
         <thead class="table-dark">
@@ -25,7 +26,13 @@
                 <td><%= dojo.street %></td>
                 <td><%= dojo.city %></td>
                 <td><%= dojo.state %></td>
-                <td><a href="">Show</a> | <a href="">Edit</a> | <a href="">Destroy</a></td>
+                <td><a href="/dojos/<%= dojo.id %>">Show</a> | <a href="/dojos/<%= dojo.id %>/edit">Edit</a> | 
+                <form action="/dojos/<%= dojo.id %>" method="POST"  class="aButton">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input type="submit" value="Destroy" class="aButton">
+                </form>
+                </td>
             </tr>
         <% end %>
         </tbody>

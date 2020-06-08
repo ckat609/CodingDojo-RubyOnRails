@@ -1,2 +1,7 @@
-<h1>Dojos#show</h1>
-<p>Find me in app/views/dojos/show.html.erb</p>
+<div class="container">
+    <h1><%= @aDojo.branch %> Dojo</h1>
+    <p><%= @aDojo.street %> <%= @aDojo.city %>,<%= @aDojo.state %></p>
+    <p>
+        <a href="/">Home</a> | <a href="/dojos/<%= @aDojo.id %>/edit">Edit</a>
+    </p>
+</div>
