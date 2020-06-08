@@ -9,11 +9,11 @@ Rails.application.routes.draw do
 
   get 'dojos/edit'
 
-  get 'dojos/create'
+  post 'dojos/create'
 
-  get 'dojos/update'
+  post 'dojos/update'
 
-  get 'dojos/destroy'
+  post 'dojos/destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
