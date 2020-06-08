@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Dojo list</h1>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Branch</th>
+                <th scope="col">Address</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% @dojos.each do |dojo|%>
+            <tr>
+                <td><%= dojo.branch %></td>
+                <td><%= dojo.street %></td>
+                <td><%= dojo.city %></td>
+                <td><%= dojo.state %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+</div>
