@@ -1,2 +1,37 @@
-<h1>Dojos#new</h1>
-<p>Find me in app/views/dojos/new.html.erb</p>
+<div class="container">
+    <h1>New dojo</h1>
+
+    <% if flash[:error] %>
+        <h6 class="alert alert-danger">
+            <ul>
+            <% flash[:error].each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+            </ul>
+        </h6>
+    <% end %>
+
+    <form action="/dojos/create" method="POST">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div class="form-group">
+            <label for="dojo[branch]">Branch</label>
+            <input type="text" class="form-control" name="dojo[branch]" id="dojo[branch]" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="dojo[street]">Street address</label>
+            <input type="text" class="form-control" name="dojo[street]" id="dojo[street]" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="dojo[city]">City</label>
+            <input type="text" class="form-control" name="dojo[city]" id="dojo[city]" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="dojo[state]">State</label>
+            <input type="text" class="form-control" name="dojo[state]" id="dojo[state]" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Create">
+        </div>
+
+    </form>
+</div>
