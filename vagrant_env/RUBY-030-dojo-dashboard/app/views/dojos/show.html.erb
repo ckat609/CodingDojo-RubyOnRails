@@ -1,7 +1,40 @@
 <div class="container">
-    <h1><%= @aDojo.branch %> Dojo</h1>
-    <p><%= @aDojo.street %> <%= @aDojo.city %>,<%= @aDojo.state %></p>
-    <p>
-        <a href="/">Home</a> | <a href="/dojos/<%= @aDojo.id %>/edit">Edit</a>
-    </p>
+    <div class="jumbotron">
+        <h1 class="display-4"><%= @aDojo.branch %> Dojo</h1>
+        <h3><%= @aDojo.street %></h3>
+        <h3><%= @aDojo.city %>,<%= @aDojo.state %></h3>
+        <hr class="my-4">
+        <p><a href="/">Home</a> | <a href="/dojos/<%= @aDojo.id %>/edit">Edit</a></p>
+    </div>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Registration date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @aDojo.students.each do |student| %>
+                <tr>
+                    <td><%= student.first_name %></td>
+                    <td><%= student.last_name %></td>
+                    <td><%= student.email %></td>
+                    <td><%= student.created_at.strftime('%d-%b-%Y') %></td>
+                    <td><a href="/dojos/<%= student.dojo.id %>/students/<%= student.id %>">Show</a> | <a href="/dojos/<%= student.dojo.id %>/students/<%= student.id %>/edit">Edit</a> | 
+                    <form action="/dojos/<%= student.dojo.id %>/students/<%= student.id %>" method="POST"  class="aButton">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                        <input type="submit" value="Destroy" class="aButton">
+                    </form>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <a href="/" class="btn btn-primary">Home</a>
+    <a href="/dojos/<%= @aDojo.id %>/students/new" class="btn btn-primary">Add student</a>
 </div>

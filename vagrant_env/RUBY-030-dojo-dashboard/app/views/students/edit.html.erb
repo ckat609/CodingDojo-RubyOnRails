@@ -1,0 +1,42 @@
+<div class="container">
+
+    <% if flash[:error] %>
+        <h6 class="alert alert-danger">
+            <ul>
+            <% flash[:error].each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+            </ul>
+        </h6>
+    <% end %>
+
+    <h1><%= @aStudent.first_name %> <%= @aStudent.last_name %></h1>
+    <form action="/dojos/<%= @aStudent.dojo.id %>/students/<%= @aStudent.id %>" method="POST">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="PATCH">
+        <div class="form-group">
+            <label for="student[first_name]">First name</label>
+            <input type="text" class="form-control" name="student[first_name]" id="student[first_name]" aria-describedby="emailHelp" value="<%= @aStudent.first_name %>">
+        </div>
+        <div class="form-group">
+            <label for="student[last_name]">Last name</label>
+            <input type="text" class="form-control" name="student[last_name]" id="student[last_name]" aria-describedby="emailHelp" value="<%= @aStudent.last_name %>">
+        </div>
+        <div class="form-group">
+            <label for="student[email]">Email</label>
+            <input type="text" class="form-control" name="student[email]" id="student[email]" aria-describedby="emailHelp" value="<%= @aStudent.email %>">
+        </div>
+        <div class="form-group">
+            <label for="student[dojo]">Dojo</label>
+            <select class="form-control" name="student[dojo]" id="student[dojo]">
+                <% @aDojo.each do |dojo| %>
+                    <option value="<%= dojo.id %>" <%= (dojo.id==@aStudent.dojo.id)?"selected":"" %>><%= dojo.branch %></option>
+                <% end %>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Update">
+            <a href="/" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+</div>
