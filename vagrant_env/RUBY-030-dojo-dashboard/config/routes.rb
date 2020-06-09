@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get 'students/index'
+
+  get 'dojo/:id/students/new' => "students#new", as: 'new_student'
+
+  get 'students/:id' => 'students#show', as: 'show_student'
+
+  get 'students/update'
+
+  get 'students/edit'
+
+  get 'students/destroy'
+
+  post 'students/create'
+
   root 'dojos#index'
 
   get 'dojos/index', as: 'main_dojo'
