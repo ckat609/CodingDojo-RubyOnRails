@@ -1,2 +1,45 @@
-<h1>Dojos#edit</h1>
-<p>Find me in app/views/dojos/edit.html.erb</p>
+<div class="container">
+    <% if flash[:success] %>
+        <h6 class="alert alert-success">
+            <ul>
+                <li><%= flash[:success] %></li>
+            </ul>
+        </h6>
+    <% end %>
+    <h1><%= @aDojo.branch %> Dojo</h1>
+
+    <% if flash[:error] %>
+        <h6 class="alert alert-danger">
+            <ul>
+            <% flash[:error].each do |error| %>
+                <li><%= error %></li>
+            <% end %>
+            </ul>
+        </h6>
+    <% end %>
+
+    <form action="/dojos/<%= @aDojo.id %>" method="POST">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="PATCH">
+        <div class="form-group">
+            <label for="dojo[branch]">Branch</label>
+            <input type="text" class="form-control" name="dojo[branch]" id="dojo[branch]" aria-describedby="emailHelp" value="<%= @aDojo.branch %>">
+        </div>
+        <div class="form-group">
+            <label for="dojo[street]">Street address</label>
+            <input type="text" class="form-control" name="dojo[street]" id="dojo[street]" aria-describedby="emailHelp" value="<%= @aDojo.street %>">
+        </div>
+        <div class="form-group">
+            <label for="dojo[city]">City</label>
+            <input type="text" class="form-control" name="dojo[city]" id="dojo[city]" aria-describedby="emailHelp" value="<%= @aDojo.city %>">
+        </div>
+        <div class="form-group">
+            <label for="dojo[state]">State</label>
+            <input type="text" class="form-control" name="dojo[state]" id="dojo[state]" aria-describedby="emailHelp" value="<%= @aDojo.state %>">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Update">
+            <a href="/dojos/<%= @aDojo.id %>" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+</div>
