@@ -3,7 +3,7 @@
         <h1 class="display-4"><%= @aStudent.dojo.branch %>: <%= @aStudent.first_name %> <%= @aStudent.last_name %>'s cohort</h1>
         <h3>Email: <%= @aStudent.email %></h3>
         <hr class="my-4">
-        <td><a href="/students/<%= @aStudent.id %>/edit">Edit</a> | Destroy</td>
+        <td><a href="/dojos/<%= @aStudent.dojo.id %>/students/<%= @aStudent.id %>/edit">Edit</a> | Destroy</td>
     </div>
 
     <table class="table">

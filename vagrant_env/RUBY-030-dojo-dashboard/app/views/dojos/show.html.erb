@@ -24,11 +24,17 @@
                     <td><%= student.last_name %></td>
                     <td><%= student.email %></td>
                     <td><%= student.created_at.strftime('%d-%b-%Y') %></td>
-                    <td><a href="/students/<%= student.id %>">Show</a> | Edit | Destroy</td>
+                    <td><a href="/dojos/<%= student.dojo.id %>/students/<%= student.id %>">Show</a> | <a href="/dojos/<%= student.dojo.id %>/students/<%= student.id %>/edit">Edit</a> | 
+                    <form action="/dojos/<%= student.dojo.id %>/students/<%= student.id %>" method="POST"  class="aButton">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                        <input type="submit" value="Destroy" class="aButton">
+                    </form>
+                    </td>
                 </tr>
             <% end %>
         </tbody>
     </table>
     <a href="/" class="btn btn-primary">Home</a>
-    <a href="/dojo/<%= @aDojo.id %>/students/new" class="btn btn-primary">Add student</a>
+    <a href="/dojos/<%= @aDojo.id %>/students/new" class="btn btn-primary">Add student</a>
 </div>

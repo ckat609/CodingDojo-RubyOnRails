@@ -51,7 +51,7 @@ class DojosController < ApplicationController
   def destroy
     @aDojo = Dojo.find(params[:id])
     @aDojo.destroy
-    redirect_to main_dojo_url()
+    redirect_to root_url()
   end
 
   private

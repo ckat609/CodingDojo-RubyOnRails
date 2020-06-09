@@ -11,7 +11,7 @@
         </h6>
     <% end %>
 
-    <form action="/dojos/create" method="POST">
+    <form action="/dojos" method="POST">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         <div class="form-group">
             <label for="dojo[branch]">Branch</label>

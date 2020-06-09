@@ -1,33 +1,40 @@
 Rails.application.routes.draw do
-  get 'students/index'
-
-  get 'dojo/:id/students/new' => "students#new", as: 'new_student'
-
-  get 'students/:id' => 'students#show', as: 'show_student'
-
-  get 'students/update'
-
-  get 'students/edit'
-
-  get 'students/destroy'
-
-  post 'students/create'
-
   root 'dojos#index'
+  resources :dojos do
+    resources :students
+  end
+  # get 'students/index'
 
-  get 'dojos/index', as: 'main_dojo'
+  # get 'dojo/:id/students/new' => "students#new", as: 'new_student'
 
-  get 'dojos/new', as: 'new_dojo'
+  # get 'students/:id' => 'students#show', as: 'show_student'
 
-  get 'dojos/:id' => 'dojos#show', as: 'show_dojo'
+  # patch 'students/:id' => 'students#update'
 
-  get 'dojos/:id/edit' => 'dojos#edit', as: 'edit_dojo'
+  # get 'students/:id/edit' => 'students#edit'
 
-  post 'dojos/create'
+  # delete 'students/:id' => 'students#destroy'
 
-  patch 'dojos/:id' => 'dojos#update'
+  # post 'students/create'
 
-  delete 'dojos/:id' => 'dojos#destroy'
+
+  # get "" => 'dojos#index'
+
+  # get 'dojos/index', as: 'main_dojo'
+
+  # get 'dojos/new', as: 'new_dojo'
+
+  # get 'dojos/:id' => 'dojos#show', as: 'show_dojo'
+
+  # get 'dojos/:id/edit' => 'dojos#edit', as: 'edit_dojo'
+
+  # post 'dojos/create'
+
+  # patch 'dojos/:id' => 'dojos#update'
+
+  # delete 'dojos/:id' => 'dojos#destroy'
+
+  # **********************************************
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
