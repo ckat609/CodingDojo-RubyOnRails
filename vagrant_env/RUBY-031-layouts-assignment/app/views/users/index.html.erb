@@ -1,0 +1,57 @@
+<% content_for :left_column do %>
+<h1>All users</h1>
+<table class="table table-striped table-hover">
+    <thead class="thead-tdark">
+        <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Favorite language</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+        <tr>
+            <td><%= user.first_name %></td>
+            <td><%= user.last_name  %></td>
+            <td><%= user.favorite_language %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<% end %>
+
+<% content_for :right_column do %>
+<h1>Add user</h1>
+
+<% if flash[:errors]%>
+    <h6 class="<%= (flash[:errors])?"alert alert-danger":"alert alert-success" %>">
+        <% if flash[:errors]%>
+            <% flash[:errors].each do |error|%>
+                <p><%= "#{error}" %></p>
+            <% end %>
+        <% end %>
+    </h6>
+<% end %>
+
+<form action="/users" method="POST">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <div class="form-group">
+        <label for="user[first_name]">First name</label>
+        <input type="text" class="form-control" id="user[first_name]" name="user[first_name]">
+    </div>
+    <div class="form-group">
+        <label for="user[last_name]">Last name</label>
+        <input type="text" class="form-control" id="user[last_name]" name="user[last_name]">
+    </div>
+    <div class="form-group">
+        <label for="user[favorite_language]">Favorite language</label>
+        <input type="text" class="form-control" id="user[favorite_language]" name="user[favorite_language]">
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Create">
+    </div>
+    <div class="form-group">
+        <a href="/posts" class="btn btn-primary">All posts</a>
+    </div>
+</form>
+<% end %>
