@@ -11,8 +11,6 @@ class Project
       "#{@owner}, #{@name}, #{@description}"
     end
 
-    def 
-
     def tasks
       return @task
     end
