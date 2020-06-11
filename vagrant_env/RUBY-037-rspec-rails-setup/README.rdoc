@@ -1,28 +1,44 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Setup - RSpec for Rails
+1. Create your rails app. The -T option creates the rails app without Test::Unit. Since we are going to be writing rspec tests this is what we want.
 
-Things you may want to cover:
+rails new <your_app_name> -T
+2. After creating a new rails application, add and save the following to your Gemfile:
 
-* Ruby version
+Gemfile
 
-* System dependencies
+group :development, :test do
+  gem 'rspec-rails'
+end
+3. Run the following in your Terminal (Make sure you are in your project directory and in Vagrant before running the commands below): 
 
-* Configuration
+bundle install
+rails generate rspec:install
+Running the commands above will create a directory named "/spec" and a ".rspec" file in your project's root directory. You will see that inside our spec folder there is a "/spec_helper.rb" file which contains your RSpec configurations. If you install RSpec to a project that already includes Models, Views, and Controllers, then the "/spec" folder will also auto-generate test files for each, neatly organized in folders: models, views, and controllers. Going forward, whenever you generate a new Model or new Controller, RSpec will auto generate spec files for testing the new Model or Controller.
 
-* Database creation
+Let's have RSpec test what we have so far (which is empty) and see what it returns:
 
-* Database initialization
+rspec spec
+Terminal Output
 
-* How to run the test suite
+No examples found.
+Finished in 0.00061 seconds (files took 0.14526 seconds to load)
+0 examples, 0 failures
+----------------------------------------
 
-* Services (job queues, cache servers, search engines, etc.)
+Generate a model and migrate your database
+rails generate model User first_name:string last_name:string email:string
+rake db:migrate
 
-* Deployment instructions
+Run our first spec test
+Lets run our first rspec test.
 
-* ...
+rspec spec
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+class User < ApplicationRecord
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
+  validates :first_name, :last_name, presence: true, length: { in: 2..20 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }
+end
