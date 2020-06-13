@@ -1,0 +1,68 @@
+
+<% content_for :content_title do%>
+    <h1>The wall</h1>
+<%end%>
+
+<% content_for :content_main do%>
+<div class="row">
+    <p>
+    <% if flash[:notice] %>
+        <ul>
+        <% flash[:notice].each do |note| %>
+            <li class="alert alert-danger" id="notice"><%= note %></li>
+        <% end %>
+        </ul>
+    <% end %>
+    <% if flash[:errors] %>
+        <ul>
+        <% flash[:errors].each do |error| %>
+            <li class="alert alert-danger" id="errors"><%= error %></li>  
+        <% end %>
+        </ul>
+    <% end %>
+    </p>
+    <hr>
+</div>
+<div class="row">
+    <div class="col">
+        <form action="/users/create" method="POST">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <div class="form-group">
+                <label for="user[fname]">First name</label>
+                <input class="form-control" type="text" name="user[fname]" id="user_fname">
+            </div>
+            <div class="form-group">
+                <label for="user[lname]">Last name</label>
+                <input class="form-control" type="text" name="user[lname]" id="user_lname">
+            </div>
+            <div class="form-group">
+                <label for="user[email]">Email</label>
+                <input class="form-control" type="email" name="user[email]" id="user_email">
+            </div>
+            <div class="form-group">
+                <label for="user[password]">Password</label>
+                <input class="form-control" type="password" name="user[password]" id="user_password">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Create User">
+            </div>
+        </form>
+    </div>
+    <div class="col">
+        <form action="/users/login" method="POST">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <div class="form-group">
+                <label for="login[email]">Email</label>
+                <input class="form-control" type="email" name="login[email]" id="login_email">
+            </div>
+            <div class="form-group">
+                <label for="login[password]">Password</label>
+                <input class="form-control" type="password" name="login[password]" id="login_password">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Sign in">
+            </div>
+        </form>
+    </div>
+</div>
+<%end%>

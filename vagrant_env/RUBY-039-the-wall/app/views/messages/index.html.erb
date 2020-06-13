@@ -1,0 +1,52 @@
+<%= content_for :content_title do %>
+    <h1>Welcome, <%= User.find(session[:user_id]).fname %>: Messages</h1>
+    <form action="/users/logout" method="GET">
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Logout">
+        </div>
+    </form>
+<% end %>
+
+<%= content_for :content_main do %>
+    <% if flash[:notice] %>
+        <% flash[:notice].each do |note| %>
+            <h6 class="alert alert-danger" id="notice"><%= note %></h6>  
+        <% end %>
+    <% end %>
+    <% if flash[:errors] %>
+        <% flash[:errors].each do |error| %>
+            <h6 class="alert alert-danger" id="errors"><%= error %></h6>  
+        <% end %>
+    <% end %>
+
+    <form action="/messages/create" method="POST">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div class="form-group">
+            <label for="message[message]">New message</label>
+            <textarea class="form-control" name="message[message]" id="message_message" cols="30" rows="10"></textarea>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Create message">
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Message</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @messages.each do |msg|%>
+                <tr>
+                    <td><%= msg.message %></td>
+                    <td><%= msg.user.fname %></td>
+                    <td><%= msg.created_at %></td>
+                </tr>
+            <%end%>
+        </tbody>
+
+    </table>
+<% end %>

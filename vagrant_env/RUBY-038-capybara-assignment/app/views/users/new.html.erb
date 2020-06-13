@@ -1,12 +1,12 @@
 <h1>Create new User</h1>
 <% if flash[:notice] %>
   <% flash[:notice].each do |note| %>
-    <p id="notice"><%= note %></p>  
+    <h6 class="alert alert-success" id="notice"><%= note %></h6>  
   <% end %>
 <% end %>
 <% if flash[:errors] %>
   <% flash[:errors].each do |error| %>
-    <p id="errors"><%= error %></p>  
+    <h6 class="alert alert-danger" id="errors"><%= error %></h6>  
   <% end %>
 <% end %>
 <form action = "/users" method = "post">
