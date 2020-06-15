@@ -4,13 +4,10 @@ class SessionsController < ApplicationController
   end
   def create
     user = User.where(email: session_params[:email]).first
-    puts "*"*50
-    puts user.inspect
-    puts "*"*50
       if user
         if user.authenticate(session_params[:password])
           session[:user_id] = user.id
-          redirect_to users_show_path
+          redirect_to secrets_path#users_show_path(id: current_user)
         else
           flash[:errors] = ["Invalid password"]
           redirect_to sessions_new_path
@@ -21,13 +18,14 @@ class SessionsController < ApplicationController
       end
   end
   def destroy
-      session[:user_id] = nil
-      redirect_to sessions_new_path
+    # session[:user_id] = nil
+    session.clear
+    redirect_to ""
   end
 
   private
 
   def session_params
-    params.require(:login).permit(:email, :password)
+    params.require(:user).permit(:email, :password)
   end
 end

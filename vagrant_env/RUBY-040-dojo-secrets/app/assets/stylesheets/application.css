@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+.likes {
+    width: 20px;
+    display: inline-block;
+}
+
+.unlikes {
+    width: 20px;
+    filter: grayscale(100%);
+    display: inline-block;
+}
