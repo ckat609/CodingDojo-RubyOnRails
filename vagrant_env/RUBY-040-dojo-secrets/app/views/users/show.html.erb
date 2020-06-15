@@ -1,2 +1,89 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1>Welcome, <%= current_user.name %></h1>
+<hr>
+<% if flash[:notices] %>
+    <ul>
+    <% flash[:notices].each do |notice| %>
+        <li class="alert alert-success"><%= notice %></li>
+    <% end %>
+    </ul>
+<% end %>
+<% if flash[:errors] %>
+    <ul>
+    <% flash[:errors].each do |error| %>
+        <li class="alert alert-danger"><%= error %></li>
+    <% end %>
+    </ul>
+<% end %>
+<div>
+<form action="/secrets/create" action="POST">
+    <div class="form-group">
+        <label for="secret[content]">New Secret</label>
+        <textarea class="form-control" name="secret[content]" id="secret[content]" cols="30" rows="10"></textarea>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Add secret">
+    </div>
+</form>
+<div class="row">
+    <div class="col">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Secret</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% current_user.secrets.each do |secret| %>
+                    <tr>
+                        <td>
+                            <p><%= secret.content %></p>
+                            <p><%= secret.likes.count %> <%= image_tag("like.png", class: "likes") %></p>
+                        </td>
+                        <td>
+                            <form action="/secrets/destroy/<%= secret.id %>" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Secrets I've liked</th>
+                    <th scope="col">Likes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% current_user.secrets_liked.each do |secret| %>
+                    <tr>
+                        <td>
+                            <p><%= secret.content %></p>
+                        </td>
+                        <td>
+                            <p>
+                                <%= secret.likes.count %>
+                                <% if (secret.user != current_user) %>
+                                    <form action="/likes/create/<%= secret.id %>" method="post">
+                                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                                        <%= image_submit_tag("like.png", class: "likes") %>
+                                    </form>
+                                <%else%>
+                                    <%= image_tag("like.png", class: "unlikes") %>
+                                <%end%>
+                            </p>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+

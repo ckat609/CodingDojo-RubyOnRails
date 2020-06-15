@@ -7,31 +7,31 @@ feature "authentication feature" do
         end
 
         scenario 'visits sign-in page, prompted with email and password fields' do
-            expect(page).to have_field 'login_email'
-            expect(page).to have_field 'login_password'
+            expect(page).to have_field 'user_email'
+            expect(page).to have_field 'user_password'
         end
 
 
         scenario 'logs in user if email/password combination is valid' do
             add_user
-            fill_in "login_email", with: 'a@a.com'
-            fill_in "login_password", with: 'hello'
+            fill_in "user_email", with: 'a@a.com'
+            fill_in "user_password", with: 'hello'
             click_button "Sign in"
-            expect(page).to have_text "Users#show"
+            expect(page).to have_text "Welcome, Armando Tello"
         end
         
         scenario 'does not sign in user if email is not found' do
             add_user
-            fill_in "login_email", with: 'b@b.com'
-            fill_in "login_password", with: "hello"    
+            fill_in "user_email", with: 'b@b.com'
+            fill_in "user_password", with: "hello"    
             click_button "Sign in"
             expect(page).to have_text "Invalid email"
         end
         
         scenario 'does not sign in user if email is not found' do
             add_user
-            fill_in "login_email", with: 'a@a.com'
-            fill_in "login_password", with: "helloworld"
+            fill_in "user_email", with: 'a@a.com'
+            fill_in "user_password", with: "helloworld"
             click_button "Sign in"
             expect(page).to have_text "Invalid password"
         end
@@ -59,7 +59,7 @@ end
 
 def login
     add_user
-    fill_in "login_email", with: 'a@a.com'
-    fill_in "login_password", with: "hello"
+    fill_in "user_email", with: 'a@a.com'
+    fill_in "user_password", with: "hello"
     click_button "Sign in"
 end
