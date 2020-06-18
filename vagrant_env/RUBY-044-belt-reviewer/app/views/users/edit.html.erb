@@ -1,0 +1,115 @@
+<h3>Edit user profile</h3>
+<% if flash[:errors] %>
+    <ul>
+    <% flash[:errors].each do |e| %>
+        <li class="alert alert-danger"><%= e %></li>
+    <% end %>
+    </ul>
+<% end %>
+<% if flash[:notices] %>
+    <ul>
+    <% flash[:notices].each do |n| %>
+        <li class="alert alert-success"><%= n %></li>
+    <% end %>
+    </ul>
+<% end %>
+<hr>
+<form action="/users/update" method="POST">
+    <input type="hidden" name="_method" value="PATCH">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <div class="form-group">
+        <label for="user[fname]">First name</label>
+        <input class="form-control" type="text" name="user[fname]" id="user[fname]" value="<%= current_user.fname %>">
+    </div>
+    <div class="form-group">
+        <label for="user[lname]">Last name</label>
+        <input class="form-control" type="text" name="user[lname]" id="user[lname]" value="<%= current_user.lname %>">
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-8">
+            <label for="user[city]">City</label>
+            <input class="form-control" type="text" name="user[city]" id="user[city]" value="<%= current_user.city %>">
+        </div>
+        <div class="form-group col-sm-4">
+            <label for="user[state]">State</label>
+            <select class="form-control" name="user[state]" name="user[state]"" id="">
+            <option value='AL' <%= ('AL' == current_user.state)? 'selected':'' %>>Alabama</option>
+            <option value='AK' <%= ('AK' == current_user.state)? 'selected':'' %>>Alaska</option>
+            <option value='AZ' <%= ('AZ' == current_user.state)? 'selected':'' %>>Arizona</option>
+            <option value='AR' <%= ('AR' == current_user.state)? 'selected':'' %>>Arkansas</option>
+            <option value='CA' <%= ('CA' == current_user.state)? 'selected':'' %>>California</option>
+            <option value='CO' <%= ('CO' == current_user.state)? 'selected':'' %>>Colorado</option>
+            <option value='CT' <%= ('CT' == current_user.state)? 'selected':'' %>>Connecticut</option>
+            <option value='DE' <%= ('DE' == current_user.state)? 'selected':'' %>>Delaware</option>
+            <option value='FL' <%= ('FL' == current_user.state)? 'selected':'' %>>Florida</option>
+            <option value='GA' <%= ('GA' == current_user.state)? 'selected':'' %>>Georgia</option>
+            <option value='HI' <%= ('HI' == current_user.state)? 'selected':'' %>>Hawaii</option>
+            <option value='ID' <%= ('ID' == current_user.state)? 'selected':'' %>>Idaho</option>
+            <option value='IL' <%= ('IL' == current_user.state)? 'selected':'' %>>Illinois</option>
+            <option value='IN' <%= ('IN' == current_user.state)? 'selected':'' %>>Indiana</option>
+            <option value='IA' <%= ('IA' == current_user.state)? 'selected':'' %>>Iowa</option>
+            <option value='KS' <%= ('KS' == current_user.state)? 'selected':'' %>>Kansas</option>
+            <option value='KY' <%= ('KY' == current_user.state)? 'selected':'' %>>Kentucky</option>
+            <option value='LA' <%= ('LA' == current_user.state)? 'selected':'' %>>Louisiana</option>
+            <option value='ME' <%= ('ME' == current_user.state)? 'selected':'' %>>Maine</option>
+            <option value='MD' <%= ('MD' == current_user.state)? 'selected':'' %>>Maryland</option>
+            <option value='MA' <%= ('MA' == current_user.state)? 'selected':'' %>>Massachusetts</option>
+            <option value='MI' <%= ('MI' == current_user.state)? 'selected':'' %>>Michigan</option>
+            <option value='MN' <%= ('MN' == current_user.state)? 'selected':'' %>>Minnesota</option>
+            <option value='MS' <%= ('MS' == current_user.state)? 'selected':'' %>>Mississippi</option>
+            <option value='MO' <%= ('MO' == current_user.state)? 'selected':'' %>>Missouri</option>
+            <option value='MT' <%= ('MT' == current_user.state)? 'selected':'' %>>Montana</option>
+            <option value='NE' <%= ('NE' == current_user.state)? 'selected':'' %>>Nebraska</option>
+            <option value='NV' <%= ('NV' == current_user.state)? 'selected':'' %>>Nevada</option>
+            <option value='NH' <%= ('NH' == current_user.state)? 'selected':'' %>>New Hampshire</option>
+            <option value='NJ' <%= ('NJ' == current_user.state)? 'selected':'' %>>New Jersey</option>
+            <option value='NM' <%= ('NM' == current_user.state)? 'selected':'' %>>New Mexico</option>
+            <option value='NY' <%= ('NY' == current_user.state)? 'selected':'' %>>New York</option>
+            <option value='NC' <%= ('NC' == current_user.state)? 'selected':'' %>>North Carolina</option>
+            <option value='ND' <%= ('ND' == current_user.state)? 'selected':'' %>>North Dakota</option>
+            <option value='OH' <%= ('OH' == current_user.state)? 'selected':'' %>>Ohio</option>
+            <option value='OK' <%= ('OK' == current_user.state)? 'selected':'' %>>Oklahoma</option>
+            <option value='OR' <%= ('OR' == current_user.state)? 'selected':'' %>>Oregon</option>
+            <option value='PA' <%= ('PA' == current_user.state)? 'selected':'' %>>Pennsylvania</option>
+            <option value='RI' <%= ('RI' == current_user.state)? 'selected':'' %>>Rhode Island</option>
+            <option value='SC' <%= ('SC' == current_user.state)? 'selected':'' %>>South Carolina</option>
+            <option value='SD' <%= ('SD' == current_user.state)? 'selected':'' %>>South Dakota</option>
+            <option value='TN' <%= ('TN' == current_user.state)? 'selected':'' %>>Tennessee</option>
+            <option value='TX' <%= ('TX' == current_user.state)? 'selected':'' %>>Texas</option>
+            <option value='UT' <%= ('UT' == current_user.state)? 'selected':'' %>>Utah</option>
+            <option value='VT' <%= ('VT' == current_user.state)? 'selected':'' %>>Vermont</option>
+            <option value='VA' <%= ('VA' == current_user.state)? 'selected':'' %>>Virginia</option>
+            <option value='WA' <%= ('WA' == current_user.state)? 'selected':'' %>>Washington</option>
+            <option value='WV' <%= ('WV' == current_user.state)? 'selected':'' %>>West Virginia</option>
+            <option value='WI' <%= ('WI' == current_user.state)? 'selected':'' %>>Wisconsin</option>
+            <option value='WY' <%= ('WY' == current_user.state)? 'selected':'' %>>Wyoming</option>
+            <option value='AS' <%= ('AS' == current_user.state)? 'selected':'' %>>American Samoa</option>
+            <option value='DC' <%= ('DC' == current_user.state)? 'selected':'' %>>District of Columbia</option>
+            <option value='FM' <%= ('FM' == current_user.state)? 'selected':'' %>>Federated States of Micronesia</option>
+            <option value='GU' <%= ('GU' == current_user.state)? 'selected':'' %>>Guam</option>
+            <option value='MH' <%= ('MH' == current_user.state)? 'selected':'' %>>Marshall Islands</option>
+            <option value='MP' <%= ('MP' == current_user.state)? 'selected':'' %>>Northern Mariana Islands</option>
+            <option value='PW' <%= ('PW' == current_user.state)? 'selected':'' %>>Palau</option>
+            <option value='PR' <%= ('PR' == current_user.state)? 'selected':'' %>>Puerto Rico</option>
+            <option value='VI' <%= ('VI' == current_user.state)? 'selected':'' %>>Virgin Islands</option>
+        </select>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="user[email]">Email</label>
+        <input class="form-control" type="email" name="user[email]" id="user[email]" value="<%= current_user.email %>">
+    </div>
+    <div class="form-group">
+        <label for="user[password]">Password</label>
+        <input class="form-control" type="password" name="user[password]" id="user[password]">
+    </div>
+    <div class="form-group">
+        <label for="user[password_confirmation]">Password confirmation</label>
+        <input class="form-control" type="password" name="user[password_confirmation]" id="user[password_confirmation]">
+    </div>
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Update">
+    </div>
+</form>

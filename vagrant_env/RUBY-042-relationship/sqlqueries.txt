@@ -1,0 +1,35 @@
+Hirb.enable
+book1 = Book.create(title: "Cien Años De Soledad")
+book2 = Book.create(title: "La Casa De Los Espiritus")
+book3 = Book.create(title: "El Señor Presidente")
+
+author1 = Author.create(name: "Gabriel Garcia Marquez")
+author2 = Author.create(name: "Isabel Allende")
+author3 = Author.create(name: "Miguel Angel Asturias")
+
+user1 = User.create(name: "Armando Tello")
+user2 = User.create(name: "Ana Regina Garcia")
+user3 = User.create(name: "James Layton")
+
+Hirb.enable
+
+book1 = Book.find(1)
+book2 = Book.find(2)
+book3 = Book.find(3)
+
+author1 = Author.find(1)
+author2 = Author.find(2)
+author3 = Author.find(3)
+
+user1 = User.find(1)
+user2 = User.find(2)
+user3 = User.find(3)
+
+book1.authors<<author1
+book2.authors<<author2
+book3.authors<<author3
+book1.save
+book2.save
+book3.save
+
+loan1 = Loan.new

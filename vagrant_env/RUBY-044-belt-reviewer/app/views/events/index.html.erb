@@ -1,0 +1,196 @@
+<div class="row">
+    <div class="col">
+        <h1>Welcome, <%= current_user.fname %>!</h1>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col">
+        <% if flash[:errors] %>
+            <ul>
+            <% flash[:errors].each do |e| %>
+                <li class="alert alert-danger"><%= e %></li>
+            <% end %>
+            </ul>
+        <% end %>
+        <% if flash[:notices] %>
+            <ul>
+            <% flash[:notices].each do |n| %>
+                <li class="alert alert-success"><%= n %></li>
+            <% end %>
+            </ul>
+        <% end %>
+    </div>
+</div>
+<h3>Add event</h3>
+<div class="row">
+    <div class="col">
+        <form action="/events/create" method="POST">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <div class="form-group">
+                <label for="event[name]">Name</label>
+                <input class="form-control" type="text" name="event[name]" id="event[name]">
+            </div>
+            <div class="form-group">
+                <label for="event[date]">Date</label>
+                <input class="form-control" type="date" name="event[date]" id="event[date]">
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-8">
+                    <label for="event[city]">City</label>
+                    <input class="form-control" type="text" name="event[city]" id="event[city]">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="event[state]">State</label>
+                    <select class="form-control" name="event[state]" name="event[state]"" id="">
+                        <option value='AL'>Alabama</option>
+                        <option value='AK'>Alaska</option>
+                        <option value='AZ'>Arizona</option>
+                        <option value='AR'>Arkansas</option>
+                        <option value='CA'>California</option>
+                        <option value='CO'>Colorado</option>
+                        <option value='CT'>Connecticut</option>
+                        <option value='DE'>Delaware</option>
+                        <option value='FL'>Florida</option>
+                        <option value='GA'>Georgia</option>
+                        <option value='HI'>Hawaii</option>
+                        <option value='ID'>Idaho</option>
+                        <option value='IL'>Illinois</option>
+                        <option value='IN'>Indiana</option>
+                        <option value='IA'>Iowa</option>
+                        <option value='KS'>Kansas</option>
+                        <option value='KY'>Kentucky</option>
+                        <option value='LA'>Louisiana</option>
+                        <option value='ME'>Maine</option>
+                        <option value='MD'>Maryland</option>
+                        <option value='MA'>Massachusetts</option>
+                        <option value='MI'>Michigan</option>
+                        <option value='MN'>Minnesota</option>
+                        <option value='MS'>Mississippi</option>
+                        <option value='MO'>Missouri</option>
+                        <option value='MT'>Montana</option>
+                        <option value='NE'>Nebraska</option>
+                        <option value='NV'>Nevada</option>
+                        <option value='NH'>New Hampshire</option>
+                        <option value='NJ'>New Jersey</option>
+                        <option value='NM'>New Mexico</option>
+                        <option value='NY'>New York</option>
+                        <option value='NC'>North Carolina</option>
+                        <option value='ND'>North Dakota</option>
+                        <option value='OH'>Ohio</option>
+                        <option value='OK'>Oklahoma</option>
+                        <option value='OR'>Oregon</option>
+                        <option value='PA'>Pennsylvania</option>
+                        <option value='RI'>Rhode Island</option>
+                        <option value='SC'>South Carolina</option>
+                        <option value='SD'>South Dakota</option>
+                        <option value='TN'>Tennessee</option>
+                        <option value='TX'>Texas</option>
+                        <option value='UT'>Utah</option>
+                        <option value='VT'>Vermont</option>
+                        <option value='VA'>Virginia</option>
+                        <option value='WA'>Washington</option>
+                        <option value='WV'>West Virginia</option>
+                        <option value='WI'>Wisconsin</option>
+                        <option value='WY'>Wyoming</option>
+                        <option value='AS'>American Samoa</option>
+                        <option value='DC'>District of Columbia</option>
+                        <option value='FM'>Federated States of Micronesia</option>
+                        <option value='GU'>Guam</option>
+                        <option value='MH'>Marshall Islands</option>
+                        <option value='MP'>Northern Mariana Islands</option>
+                        <option value='PW'>Palau</option>
+                        <option value='PR'>Puerto Rico</option>
+                        <option value='VI'>Virgin Islands</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Register">
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col">
+        <h3>Here are some events in your state</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Host</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @events.each do |event| %>
+                    <% if event.state == current_user.state%>
+                        <tr>
+                            <td><a href="/events/show/<%= event.id %>"><%= event.name %></a></td>
+                            <td><%= event.date.strftime("%m-%d-%Y") %></td>
+                            <td><%= event.city %>, <%= event.state %></td>
+                            <td><%= event.user.fname %> <%= event.user.lname %></td>
+                            <td>
+                                <% if event.user.id == current_user.id %>
+                                    <a href="/events/edit/<%= event.id %>">Edit</a>
+                                    | <a href="/events/destroy/<%= event.id %>">Delete</a> 
+                                <%end%>
+                                <% if event.user.id != current_user.id %>
+                                    <% if event.users_attending.include?current_user %>
+                                        <a href="/events/cancel/<%= event.id %>">Cancel</a>
+                                    <%else%>
+                                        <a href="/events/join/<%= event.id %>">Join</a>
+                                    <%end%>
+                                <%end%>
+                            </td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h3>Here are some events in other states</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Host</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @events.each do |event| %>
+                    <% if event.state != current_user.state%>
+                        <tr>
+                            <td><a href="/events/show/<%= event.id %>"><%= event.name %></a></td>
+                            <td><%= event.date.strftime("%m-%d-%Y") %></td>
+                            <td><%= event.city %>, <%= event.state %></td>
+                            <td><%= event.user.fname %> <%= event.user.lname %></td>
+                            <td>
+                                <% if event.user.id == current_user.id %>
+                                    <a href="/events/edit/<%= event.id %>">Edit</a> | 
+                                    <a href="/events/destroy/<%= event.id %>">Delete</a>
+                                <%end%>
+                                <% if event.user.id != current_user.id %>
+                                    <% if event.users_attending.include?current_user %>
+                                        <a href="/events/cancel/<%= event.id %>">Cancel</a>
+                                    <%else%>
+                                        <a href="/events/join/<%= event.id %>">Join</a>
+                                    <%end%>
+                                <%end%>
+                            </td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
