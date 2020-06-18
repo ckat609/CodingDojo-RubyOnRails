@@ -1,0 +1,108 @@
+<h3><%= @event.name %></h3>
+<div class="row">
+    <div class="col">
+        <% if flash[:errors] %>
+            <ul>
+            <% flash[:errors].each do |e| %>
+                <li class="alert alert-danger"><%= e %></li>
+            <% end %>
+            </ul>
+        <% end %>
+        <% if flash[:notices] %>
+            <ul>
+            <% flash[:notices].each do |n| %>
+                <li class="alert alert-success"><%= n %></li>
+            <% end %>
+            </ul>
+        <% end %>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <form action="/events/update/<%= @event.id %>" method="POST">
+            <input type="hidden" name="_method" value="PATCH">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <div class="form-group">
+                <label for="event[name]">Name</label>
+                <input class="form-control" type="text" name="event[name]" id="event[name]" value="<%= @event.name %>">
+            </div>
+            <div class="form-group">
+                <label for="event[date]">Date</label>
+                <input class="form-control" type="date" name="event[date]" id="event[date]" value="<%= @event.date.strftime("%Y-%m-%d") %>">
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-8">
+                    <label for="event[city]">City</label>
+                    <input class="form-control" type="text" name="event[city]" id="event[city]" value="<%= @event.city %>">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="event[state]">State</label>
+                    <select class="form-control" name="event[state]" name="event[state]"" id="">
+                        <option value='AL' <%= ('AL' == @event.state)? 'selected':'' %>>Alabama</option>
+                        <option value='AK' <%= ('AK' == @event.state)? 'selected':'' %>>Alaska</option>
+                        <option value='AZ' <%= ('AZ' == @event.state)? 'selected':'' %>>Arizona</option>
+                        <option value='AR' <%= ('AR' == @event.state)? 'selected':'' %>>Arkansas</option>
+                        <option value='CA' <%= ('CA' == @event.state)? 'selected':'' %>>California</option>
+                        <option value='CO' <%= ('CO' == @event.state)? 'selected':'' %>>Colorado</option>
+                        <option value='CT' <%= ('CT' == @event.state)? 'selected':'' %>>Connecticut</option>
+                        <option value='DE' <%= ('DE' == @event.state)? 'selected':'' %>>Delaware</option>
+                        <option value='FL' <%= ('FL' == @event.state)? 'selected':'' %>>Florida</option>
+                        <option value='GA' <%= ('GA' == @event.state)? 'selected':'' %>>Georgia</option>
+                        <option value='HI' <%= ('HI' == @event.state)? 'selected':'' %>>Hawaii</option>
+                        <option value='ID' <%= ('ID' == @event.state)? 'selected':'' %>>Idaho</option>
+                        <option value='IL' <%= ('IL' == @event.state)? 'selected':'' %>>Illinois</option>
+                        <option value='IN' <%= ('IN' == @event.state)? 'selected':'' %>>Indiana</option>
+                        <option value='IA' <%= ('IA' == @event.state)? 'selected':'' %>>Iowa</option>
+                        <option value='KS' <%= ('KS' == @event.state)? 'selected':'' %>>Kansas</option>
+                        <option value='KY' <%= ('KY' == @event.state)? 'selected':'' %>>Kentucky</option>
+                        <option value='LA' <%= ('LA' == @event.state)? 'selected':'' %>>Louisiana</option>
+                        <option value='ME' <%= ('ME' == @event.state)? 'selected':'' %>>Maine</option>
+                        <option value='MD' <%= ('MD' == @event.state)? 'selected':'' %>>Maryland</option>
+                        <option value='MA' <%= ('MA' == @event.state)? 'selected':'' %>>Massachusetts</option>
+                        <option value='MI' <%= ('MI' == @event.state)? 'selected':'' %>>Michigan</option>
+                        <option value='MN' <%= ('MN' == @event.state)? 'selected':'' %>>Minnesota</option>
+                        <option value='MS' <%= ('MS' == @event.state)? 'selected':'' %>>Mississippi</option>
+                        <option value='MO' <%= ('MO' == @event.state)? 'selected':'' %>>Missouri</option>
+                        <option value='MT' <%= ('MT' == @event.state)? 'selected':'' %>>Montana</option>
+                        <option value='NE' <%= ('NE' == @event.state)? 'selected':'' %>>Nebraska</option>
+                        <option value='NV' <%= ('NV' == @event.state)? 'selected':'' %>>Nevada</option>
+                        <option value='NH' <%= ('NH' == @event.state)? 'selected':'' %>>New Hampshire</option>
+                        <option value='NJ' <%= ('NJ' == @event.state)? 'selected':'' %>>New Jersey</option>
+                        <option value='NM' <%= ('NM' == @event.state)? 'selected':'' %>>New Mexico</option>
+                        <option value='NY' <%= ('NY' == @event.state)? 'selected':'' %>>New York</option>
+                        <option value='NC' <%= ('NC' == @event.state)? 'selected':'' %>>North Carolina</option>
+                        <option value='ND' <%= ('ND' == @event.state)? 'selected':'' %>>North Dakota</option>
+                        <option value='OH' <%= ('OH' == @event.state)? 'selected':'' %>>Ohio</option>
+                        <option value='OK' <%= ('OK' == @event.state)? 'selected':'' %>>Oklahoma</option>
+                        <option value='OR' <%= ('OR' == @event.state)? 'selected':'' %>>Oregon</option>
+                        <option value='PA' <%= ('PA' == @event.state)? 'selected':'' %>>Pennsylvania</option>
+                        <option value='RI' <%= ('RI' == @event.state)? 'selected':'' %>>Rhode Island</option>
+                        <option value='SC' <%= ('SC' == @event.state)? 'selected':'' %>>South Carolina</option>
+                        <option value='SD' <%= ('SD' == @event.state)? 'selected':'' %>>South Dakota</option>
+                        <option value='TN' <%= ('TN' == @event.state)? 'selected':'' %>>Tennessee</option>
+                        <option value='TX' <%= ('TX' == @event.state)? 'selected':'' %>>Texas</option>
+                        <option value='UT' <%= ('UT' == @event.state)? 'selected':'' %>>Utah</option>
+                        <option value='VT' <%= ('VT' == @event.state)? 'selected':'' %>>Vermont</option>
+                        <option value='VA' <%= ('VA' == @event.state)? 'selected':'' %>>Virginia</option>
+                        <option value='WA' <%= ('WA' == @event.state)? 'selected':'' %>>Washington</option>
+                        <option value='WV' <%= ('WV' == @event.state)? 'selected':'' %>>West Virginia</option>
+                        <option value='WI' <%= ('WI' == @event.state)? 'selected':'' %>>Wisconsin</option>
+                        <option value='WY' <%= ('WY' == @event.state)? 'selected':'' %>>Wyoming</option>
+                        <option value='AS' <%= ('AS' == @event.state)? 'selected':'' %>>American Samoa</option>
+                        <option value='DC' <%= ('DC' == @event.state)? 'selected':'' %>>District of Columbia</option>
+                        <option value='FM' <%= ('FM' == @event.state)? 'selected':'' %>>Federated States of Micronesia</option>
+                        <option value='GU' <%= ('GU' == @event.state)? 'selected':'' %>>Guam</option>
+                        <option value='MH' <%= ('MH' == @event.state)? 'selected':'' %>>Marshall Islands</option>
+                        <option value='MP' <%= ('MP' == @event.state)? 'selected':'' %>>Northern Mariana Islands</option>
+                        <option value='PW' <%= ('PW' == @event.state)? 'selected':'' %>>Palau</option>
+                        <option value='PR' <%= ('PR' == @event.state)? 'selected':'' %>>Puerto Rico</option>
+                        <option value='VI' <%= ('VI' == @event.state)? 'selected':'' %>>Virgin Islands</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Update">
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<h1>User Profile</h1>
+<hr>
+<% if flash[:errors] %>
+    <ul>
+    <% flash[:errors].each do |e| %>
+        <li class="alert alert-danger"><%= e %></li>
+    <% end %>
+    </ul>
+<% end %>
+<% if flash[:notices] %>
+    <ul>
+    <% flash[:notices].each do |n| %>
+        <li class="alert alert-success"><%= n %></li>
+    <% end %>
+    </ul>
+<% end %>
+<hr>
+<p>First name: <%= current_user.fname %> <%= current_user.lname %></p>
+<p>Last name: <%= current_user.lname %></p>
+<p>Email: <%= current_user.email %></p>
+<p>Date joined: <%= current_user.created_at.strftime("%m-%d-%Y") %></p>
+
+<a class="btn btn-primary" href="/users/edit">Edit</a>
