@@ -1,0 +1,118 @@
+<p>Name: <%= current_user.fname %> <%= current_user.lname %></p>
+<p><%= (current_user.user_type == "borrower")? "Amount needed": "Available balance" %>: $<%= current_user.money %></p>
+<% if current_user.user_type == "lender" %>
+<p>Total amount lent: $<%= @loans.where(lender: current_user).sum(:amount) %></p>
+<% end%>
+<% if current_user.user_type == "borrower" %>
+    <p>Amount raised: $<%= @loans.sum(:amount) %></p>
+<% end%>
+<hr>
+<% if flash[:errors] %>
+    <ul>
+    <% flash[:errors].each do |e| %>
+        <li class="alert alert-danger"><%= e %></li>
+    <% end %>
+    </ul>
+<% end %>
+<% if flash[:notice] %>
+    <ul>
+    <% flash[:notice].each do |n| %>
+        <li class="alert alert-success"><%= n %></li>
+    <% end %>
+    </ul>
+<% end %>
+
+<% if current_user.user_type == "borrower" %>
+    <h3>List of people who have lent you money:</h3>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Reason</th>
+                        <th>Amount lent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @loans.each do |loan| %>
+                            <tr>
+                                <td><%= loan.lender.fname %> <%= loan.lender.lname %></td>
+                                <td><%= loan.lender.email %></td>
+                                <td><%= loan.amount %></td>
+                            </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<% else %>
+    <h3>List of people who are in need of help:</h3>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Reason</th>
+                        <th>Description</th>
+                        <th>Amount needed</th>
+                        <th>Amount raised</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @borrowers.each do |borrower| %>
+                            <tr>
+                                <td><%= borrower.fname %> <%= borrower.lname %></td>
+                                <td><%= borrower.reason %></td>
+                                <td><%= borrower.description %></td>
+                                <td>$<%= borrower.money %></td>
+                                <td>$<%= @loans.select("sum(amount) as suma").where(borrower: borrower).sum(:amount) %></td>
+                                <td>
+                                    <form action="/loans/create/<%= borrower.id %>" method="POST" class="form-inline">
+                                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="loan[amount]" id="loan[amount]">
+                                            <input class="btn btn-primary" type="submit" value="Lend">
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h3>List of people you lent money to:</h3>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Reason</th>
+                        <th>Description</th>
+                        <th>Amount needed</th>
+                        <th>Amount raised</th>
+                        <th>Amount lent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @loans.group(:borrower_id).where(lender: current_user).each do |loan| %>
+                        <% if loan.lender == current_user %>
+                            <tr>
+                                <td><%= loan.borrower.fname %> <%= loan.borrower.lname %></td>
+                                <td><%= loan.borrower.reason %></td>
+                                <td><%= loan.borrower.description %></td>
+                                <td>$<%= loan.borrower.money %></td>
+                                <td>$<%= @loans.select("sum(amount) as suma").where(borrower: loan.borrower).sum(:amount) %></td>
+                                <td>$<%= @loans.select("sum(amount) as suma").where(borrower: loan.borrower, lender: current_user).sum(:amount) %></td>
+                            </tr>
+                        <% end %>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<%end%>

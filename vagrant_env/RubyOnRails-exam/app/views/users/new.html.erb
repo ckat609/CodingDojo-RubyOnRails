@@ -1,0 +1,111 @@
+<div class="jumbotron">
+    <div class="row">
+        <div class="col">
+            <h1>Welcome</h1>
+            <% if flash[:errors] %>
+                <ul>
+                <% flash[:errors].each do |e| %>
+                    <li class="alert alert-danger"><%= e %></li>
+                <% end %>
+                </ul>
+            <% end %>
+            <% if flash[:notices] %>
+                <ul>
+                <% flash[:notices].each do |n| %>
+                    <li class="alert alert-success"><%= n %></li>
+                <% end %>
+                </ul>
+            <% end %>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Lender</h3>
+            <form action="/users/create" method="POST">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+                <input type="hidden" name="user[reason]" id="user[reason]" value="nice">
+                <input type="hidden" name="user[description]" id="user[reason]" value="because">
+                <input type="hidden" name="user[user_type]" id="user[user_type]" value="lender">
+                <div class="form-group">
+                    <label for="user[fname]">First name</label>
+                    <input class="form-control" type="text" name="user[fname]" id="user[fname]">
+                </div>
+                <div class="form-group">
+                    <label for="user[lname]">Last name</label>
+                    <input class="form-control" type="text" name="user[lname]" id="user[lname]">
+                </div>
+                <div class="form-group">
+                    <label for="user[email]">Email</label>
+                    <input class="form-control" type="email" name="user[email]" id="user[email]">
+                </div>
+                <div class="form-group">
+                    <label for="user[money]">Amount</label>
+                    <input class="form-control" type="text" name="user[money]" id="user[money]">
+                </div>
+                <div class="form-group">
+                    <label for="user[password]">Password</label>
+                    <input class="form-control" type="password" name="user[password]" id="user[password]">
+                </div>
+                <div class="form-group">
+                    <label for="user[password_confirmation]">Password confirmation</label>
+                    <input class="form-control" type="password" name="user[password_confirmation]" id="user[password_confirmation]">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+
+
+        <div class="col">
+            <h3>Borrower</h3>
+            <form action="/users/create" method="POST">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <input type="hidden" name="user[user_type]" id="user[user_type]" value="borrower">
+                <div class="form-group">
+                    <label for="user[fname]">First name</label>
+                    <input class="form-control" type="text" name="user[fname]" id="user[fname]">
+                </div>
+                <div class="form-group">
+                    <label for="user[lname]">Last name</label>
+                    <input class="form-control" type="text" name="user[lname]" id="user[lname]">
+                </div>
+                <div class="form-group">
+                    <label for="user[email]">Email</label>
+                    <input class="form-control" type="email" name="user[email]" id="user[email]">
+                </div>
+                <div class="form-group">
+                    <label for="user[reason]">Need money for</label>
+                    <input class="form-control" type="text" name="user[reason]" id="user[reason]">
+                </div>
+                <div class="form-group">
+                    <label for="user[description]">Description</label>
+                    <textarea class="form-control" name="user[description]" id="user[description]" cols="30" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="user[money]">Amount Needed</label>
+                    <input class="form-control" type="text" name="user[money]" id="user[money]">
+                </div>
+
+                <div class="form-group">
+                    <label for="user[password]">Password</label>
+                    <input class="form-control" type="password" name="user[password]" id="user[password]">
+                </div>
+                <div class="form-group">
+                    <label for="user[password_confirmation]">Password confirmation</label>
+                    <input class="form-control" type="password" name="user[password_confirmation]" id="user[password_confirmation]">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a href="/sessions/new">Go to login page</a>
+        </div>
+    </div>
+</div>

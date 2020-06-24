@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  boyfriend_id: 
+  girlfriend_id: 
+
+two:
+  boyfriend_id: 
+  girlfriend_id: 

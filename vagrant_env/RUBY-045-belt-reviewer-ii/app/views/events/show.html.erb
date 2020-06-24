@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="jumbotron">
+                <h1><%= @aEvent.name %></h1>
+                <hr>
+                <% if flash[:errors]%>
+                    <ul>
+                    <% flash[:errors].each do |error|%>
+                        <li class="alert alert-danger"><%= error %></li>
+                    <%end%>
+                    </ul>
+                <%end%>
+                <% if flash[:notice]%>
+                    <ul>
+                    <% flash[:notice].each do |notice|%>
+                        <li class="alert alert-success"><%= notice %></li>
+                    <%end%>
+                    </ul>
+                <%end%>
+
+                <p><%= @aEvent.date.strftime("%m-%d-%Y") %></p>
+                <p><%= @aEvent.city %>, <%= @aEvent.state %></p>
+                <p>Host:<%= @aEvent.user.fname %> <%= @aEvent.user.lname %></p>
+                
+                <% if @aEvent.user.id == current_user.id%>
+                    <a class="btn btn-primary" href="/events/edit/<%= @aEvent.id %>">Edit</a>
+                <%end%>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-sm-8">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @aEvent.users_attending.each do |att| %>
+                        <tr>
+                            <td><%= att.fname %> <%= att.lname %></td>
+                            <td><%= att.city %>, <%= att.state %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <div class="col col-sm-4">
+            <div class="row">
+                <div class="col">
+                    <form action="/comments/create/<%= @aEvent.id %>" method="POST">
+                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                        <div class="form-group">
+                            <label for="comment[comment]">Comment</label>
+                            <textarea class="form-control" type="text" name="comment[comment]" id="comment[comment]"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-primary" type="submit" value="Add comment">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Cooments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @aEvent.comments.order(created_at: :desc).each do |att| %>
+                                <tr>
+                                    <td>
+                                        <p><%= att.comment %></p>
+                                        <p>- <%= att.user.fname %> <%= att.user.lname %></p>
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

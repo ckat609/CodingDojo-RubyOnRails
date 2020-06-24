@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="jumbotron">
+                <h1>User profile: <%= @user.fname %> <%= @user.lname %></h1>
+                <hr>
+                <% if flash[:errors]%>
+                    <ul>
+                    <% flash[:errors].each do |error|%>
+                        <li class="alert alert-danger"><%= error %></li>
+                    <%end%>
+                    </ul>
+                <%end%>
+                <% if flash[:notice]%>
+                    <ul>
+                    <% flash[:notice].each do |notice|%>
+                        <li class="alert alert-success"><%= notice %></li>
+                    <%end%>
+                    </ul>
+                <%end%>
+                <p>Location: <%= @user.city %>, <%= @user.state %></p>
+                <p>Joined: <%= @user.created_at.strftime("%m-%d-%Y") %></p>
+                <a class="btn btn-primary" href="/users/edit/<%= @user.id %>">Edit</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <h3>Events you're attending</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Host</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @user.events_attending.each do |event| %>
+                    <tr>
+                        <td><a href="/events/show/<%= event.id %>"><%= event.name %></a></td>
+                        <td><%= event.date.strftime("%m-%d-%Y") %></td>
+                        <td><%= event.city %>, <%= event.state %></td>
+                        <td><%= event.user.fname %> <%= event.user.lname %></td>
+                        <td>
+                            <% if event.user.id == @user.id%>
+                            <a href="/events/edit/<%= event.id %>">Edit</a>
+                            | <a href="/events/destroy/<%= event.id %>">Cancel</a>
+                            <% else %>
+                                <% if event.users_attending.include?@user %>
+                                    <a href="/attendings/destroy/<%= event.id %>">Cancel</a>
+                                <%else%>
+                                    <a href="/attendings/create/<%= event.id %>">Join</a>
+                                <% end %>
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <h3>Events you're hosting</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Host</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @user.events.each do |event| %>
+                    <tr>
+                        <td><a href="/events/show/<%= event.id %>"><%= event.name %></a></td>
+                        <td><%= event.date.strftime("%m-%d-%Y") %></td>
+                        <td><%= event.city %>, <%= event.state %></td>
+                        <td><%= event.user.fname %> <%= event.user.lname %></td>
+                        <td>
+                            <% if event.user.id == current_user.id%>
+                            <a href="/events/edit/<%= event.id %>">Edit</a>
+                            | <a href="/events/destroy/<%= event.id %>">Cancel</a>
+                            <% else %>
+                                <% if event.users_attending.include?current_user %>
+                                    <a href="/attendings/destroy/<%= event.id %>">Cancel</a>
+                                <%else%>
+                                    <a href="/attendings/create/<%= event.id %>">Join</a>
+                                <% end %>
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
