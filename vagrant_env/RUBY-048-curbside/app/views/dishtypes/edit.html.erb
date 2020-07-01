@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col">
+        <h2>Dish types</h2>
+        <% if flash[:errors] %>
+            <ul>
+            <% flash[:errors].each do |e| %>
+                <li class="alert alert-danger"><%= e %></li>
+            <% end %>
+            </ul>
+        <% end %>
+        <% if flash[:notices] %>
+            <ul>
+            <% flash[:notices].each do |n| %>
+                <li class="alert alert-success"><%= n %></li>
+            <% end %>
+            </ul>
+        <% end %>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <form action="/dishtypes/<%= @dishtype.id%>" method="POST">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="hidden" name="_method" value="PATCH">
+            <div class="form-group">
+                <label for="dishtype[name]">Name</label>
+                <input class="form-control" type="text" name="dishtype[name]" id="dishtype[name]" value="<%= @dishtype.name %>">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Update">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col" class="w-25">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @dishtypes.each do |dishtype|%>
+                <tr>
+                    <td><%= dishtype.name %></td>
+                    <td>
+                        <form action="/dishtypes/<%= dishtype.id %>" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                            <a class="btn btn-outline-primary" href="/dishtypes/edit/<%= dishtype.id %>">Edit</a>
+                            <input class="btn btn-outline-danger" type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+                <%end%>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,2 @@
+module DishtypesHelper
+end

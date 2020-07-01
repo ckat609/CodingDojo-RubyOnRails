@@ -1,0 +1,165 @@
+<div class="jumbotron">
+    <div class="row">
+        <div class="col">
+            <h2>Edit restaurant: <%= @restaurant.name %></h2>
+            <% if flash[:errors] %>
+                <ul>
+                <% flash[:errors].each do |e| %>
+                    <li class="alert alert-danger"><%= e %></li>
+                <% end %>
+                </ul>
+            <% end %>
+            <% if flash[:notices] %>
+                <ul>
+                <% flash[:notices].each do |n| %>
+                    <li class="alert alert-success"><%= n %></li>
+                <% end %>
+                </ul>
+            <% end %>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="/restaurants/<%= @restaurant.id %>" method="POST">
+                <input type="hidden" name="_method" value="PATCH">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col col-sm-8">
+                            <label for="restaurant[name]">Name</label>
+                            <input class="form-control" type="text" name="restaurant[name]" id="restaurant[name]" value="<%= @restaurant.name %>">
+                        </div>
+                        <div class="col col-sm-4">
+                            <label for="restaurant[cuisine]">Cuisine</label>
+                            <select class="form-control" name="restaurant[cuisine]" id="restaurant[cuisine]">
+                                <% @categories.each do |category| %>
+                                    <option value='<%= category.id %>' <%= (category.id == @restaurant.category.id)? 'selected':'' %>><%= category.name %></option>
+                                <% end %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="restaurant[address]">Address</label>
+                            <input class="form-control" type="text" name="restaurant[address]" id="restaurant[address]" value="<%= @restaurant.address %>">
+                        </div>
+                        <div class="col-auto">
+                            <label for="restaurant[city]">City</label>
+                            <input class="form-control" type="text" name="restaurant[city]" id="restaurant[city]" value="<%= @restaurant.city %>">
+                        </div>
+                        <div class="col">
+                            <label for="restaurant[state]">State</label>
+                            <select class="form-control" name="restaurant[state]" id="restaurant[state]">
+                                <option value='AL' <%= ('AL' == @restaurant.state)? 'selected':'' %>>Alabama</option>
+                                <option value='AK' <%= ('AK' == @restaurant.state)? 'selected':'' %>>Alaska</option>
+                                <option value='AZ' <%= ('AZ' == @restaurant.state)? 'selected':'' %>>Arizona</option>
+                                <option value='AR' <%= ('AR' == @restaurant.state)? 'selected':'' %>>Arkansas</option>
+                                <option value='CA' <%= ('CA' == @restaurant.state)? 'selected':'' %>>California</option>
+                                <option value='CO' <%= ('CO' == @restaurant.state)? 'selected':'' %>>Colorado</option>
+                                <option value='CT' <%= ('CT' == @restaurant.state)? 'selected':'' %>>Connecticut</option>
+                                <option value='DE' <%= ('DE' == @restaurant.state)? 'selected':'' %>>Delaware</option>
+                                <option value='FL' <%= ('FL' == @restaurant.state)? 'selected':'' %>>Florida</option>
+                                <option value='GA' <%= ('GA' == @restaurant.state)? 'selected':'' %>>Georgia</option>
+                                <option value='HI' <%= ('HI' == @restaurant.state)? 'selected':'' %>>Hawaii</option>
+                                <option value='ID' <%= ('ID' == @restaurant.state)? 'selected':'' %>>Idaho</option>
+                                <option value='IL' <%= ('IL' == @restaurant.state)? 'selected':'' %>>Illinois</option>
+                                <option value='IN' <%= ('IN' == @restaurant.state)? 'selected':'' %>>Indiana</option>
+                                <option value='IA' <%= ('IA' == @restaurant.state)? 'selected':'' %>>Iowa</option>
+                                <option value='KS' <%= ('KS' == @restaurant.state)? 'selected':'' %>>Kansas</option>
+                                <option value='KY' <%= ('KY' == @restaurant.state)? 'selected':'' %>>Kentucky</option>
+                                <option value='LA' <%= ('LA' == @restaurant.state)? 'selected':'' %>>Louisiana</option>
+                                <option value='ME' <%= ('ME' == @restaurant.state)? 'selected':'' %>>Maine</option>
+                                <option value='MD' <%= ('MD' == @restaurant.state)? 'selected':'' %>>Maryland</option>
+                                <option value='MA' <%= ('MA' == @restaurant.state)? 'selected':'' %>>Massachusetts</option>
+                                <option value='MI' <%= ('MI' == @restaurant.state)? 'selected':'' %>>Michigan</option>
+                                <option value='MN' <%= ('MN' == @restaurant.state)? 'selected':'' %>>Minnesota</option>
+                                <option value='MS' <%= ('MS' == @restaurant.state)? 'selected':'' %>>Mississippi</option>
+                                <option value='MO' <%= ('MO' == @restaurant.state)? 'selected':'' %>>Missouri</option>
+                                <option value='MT' <%= ('MT' == @restaurant.state)? 'selected':'' %>>Montana</option>
+                                <option value='NE' <%= ('NE' == @restaurant.state)? 'selected':'' %>>Nebraska</option>
+                                <option value='NV' <%= ('NV' == @restaurant.state)? 'selected':'' %>>Nevada</option>
+                                <option value='NH' <%= ('NH' == @restaurant.state)? 'selected':'' %>>New Hampshire</option>
+                                <option value='NJ' <%= ('NJ' == @restaurant.state)? 'selected':'' %>>New Jersey</option>
+                                <option value='NM' <%= ('NM' == @restaurant.state)? 'selected':'' %>>New Mexico</option>
+                                <option value='NY' <%= ('NY' == @restaurant.state)? 'selected':'' %>>New York</option>
+                                <option value='NC' <%= ('NC' == @restaurant.state)? 'selected':'' %>>North Carolina</option>
+                                <option value='ND' <%= ('ND' == @restaurant.state)? 'selected':'' %>>North Dakota</option>
+                                <option value='OH' <%= ('OH' == @restaurant.state)? 'selected':'' %>>Ohio</option>
+                                <option value='OK' <%= ('OK' == @restaurant.state)? 'selected':'' %>>Oklahoma</option>
+                                <option value='OR' <%= ('OR' == @restaurant.state)? 'selected':'' %>>Oregon</option>
+                                <option value='PA' <%= ('PA' == @restaurant.state)? 'selected':'' %>>Pennsylvania</option>
+                                <option value='RI' <%= ('RI' == @restaurant.state)? 'selected':'' %>>Rhode Island</option>
+                                <option value='SC' <%= ('SC' == @restaurant.state)? 'selected':'' %>>South Carolina</option>
+                                <option value='SD' <%= ('SD' == @restaurant.state)? 'selected':'' %>>South Dakota</option>
+                                <option value='TN' <%= ('TN' == @restaurant.state)? 'selected':'' %>>Tennessee</option>
+                                <option value='TX' <%= ('TX' == @restaurant.state)? 'selected':'' %>>Texas</option>
+                                <option value='UT' <%= ('UT' == @restaurant.state)? 'selected':'' %>>Utah</option>
+                                <option value='VT' <%= ('VT' == @restaurant.state)? 'selected':'' %>>Vermont</option>
+                                <option value='VA' <%= ('VA' == @restaurant.state)? 'selected':'' %>>Virginia</option>
+                                <option value='WA' <%= ('WA' == @restaurant.state)? 'selected':'' %>>Washington</option>
+                                <option value='WV' <%= ('WV' == @restaurant.state)? 'selected':'' %>>West Virginia</option>
+                                <option value='WI' <%= ('WI' == @restaurant.state)? 'selected':'' %>>Wisconsin</option>
+                                <option value='WY' <%= ('WY' == @restaurant.state)? 'selected':'' %>>Wyoming</option>
+                                <option value='AS' <%= ('AS' == @restaurant.state)? 'selected':'' %>>American Samoa</option>
+                                <option value='DC' <%= ('DC' == @restaurant.state)? 'selected':'' %>>District of Columbia</option>
+                                <option value='FM' <%= ('FM' == @restaurant.state)? 'selected':'' %>>Federated States of Micronesia</option>
+                                <option value='GU' <%= ('GU' == @restaurant.state)? 'selected':'' %>>Guam</option>
+                                <option value='MH' <%= ('MH' == @restaurant.state)? 'selected':'' %>>Marshall Islands</option>
+                                <option value='MP' <%= ('MP' == @restaurant.state)? 'selected':'' %>>Northern Mariana Islands</option>
+                                <option value='PW' <%= ('PW' == @restaurant.state)? 'selected':'' %>>Palau</option>
+                                <option value='PR' <%= ('PR' == @restaurant.state)? 'selected':'' %>>Puerto Rico</option>
+                                <option value='VI' <%= ('VI' == @restaurant.state)? 'selected':'' %>>Virgin Islands</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <label for="restaurant[zipcode]">Zip</label>
+                            <input class="form-control" type="text" name="restaurant[zipcode]" id="restaurant[zipcode]" value="<%= @restaurant.zipcode %>">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Update">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<h2>My restaurants</h2>
+<div class="row">
+    <div class="col">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @restaurants.each do |restaurant| %>
+                        <tr>
+                            <td><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a></td>
+                            <td><%= restaurant.address %></td>
+                            <td><%= restaurant.city %></td>
+                            <td><%= restaurant.state %></td>
+                            <td><%= restaurant.zipcode %></td>
+                            <td>
+                                <form action="/restaurants/<%= restaurant.id %>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                                    <a class="btn btn-outline-primary" href="/restaurants/edit/<%= restaurant.id %>">Edit</a>
+                                    <input class="btn btn-outline-danger" type="submit" value="Delete">
+                                </form>
+                            </td>
+                        </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

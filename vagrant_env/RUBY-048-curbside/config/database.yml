@@ -3,7 +3,7 @@
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
-########################################
+#
 default: &default
   adapter: sqlite3
   pool: 5
@@ -23,22 +23,3 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
-
-# default: &default
-#   adapter: postgresql
-#   encoding: unicode
-#   username: ubuntu
-#   pool: 5
-
-# development:
-#   <<: *default
-#   database: seeks_development
-
-# test:
-#   <<: *default
-#   database: seeks_test
-
-# production:
-#   <<: *default
-#   database: seeks_production
-#   password: <% ENV['SEEKS_DATABASE_PASSWORD'] %>
