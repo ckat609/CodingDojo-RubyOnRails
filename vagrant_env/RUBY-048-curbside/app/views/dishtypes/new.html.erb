@@ -62,10 +62,10 @@
                                 <td><%= d.menu.restaurant.name %></td>
                                 <td><%= m.name %></td>
                                 <td>
-                                    <form action="/dishtypes/<%= r.id %>" method="POST">
+                                    <form action="/dishtypes/<%= d.id %>" method="POST">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                                        <a class="btn btn-outline-primary" href="/dishtypes/edit/<%= r.id %>">Edit</a>
+                                        <a class="btn btn-outline-primary" href="/dishtypes/edit/<%= d.id %>">Edit</a>
                                         <input class="btn btn-outline-danger" type="submit" value="Delete">
                                     </form>
                                 </td>
