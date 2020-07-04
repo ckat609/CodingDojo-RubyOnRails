@@ -30,9 +30,9 @@ Rails.application.routes.draw do
 
   get 'dishes/index'
 
-  get 'dishes/new'
+  get 'dishes/new/:id' => 'dishes#new', as: 'dishes_new'
 
-  post 'dishes/create'
+  post 'dishes/create/:id' => 'dishes#create'
 
   get 'dishes/show'
 

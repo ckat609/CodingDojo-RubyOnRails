@@ -1,7 +1,6 @@
 class MenusController < ApplicationController
   def index
-    @menus = Menu.where(restaurant: current_user.restaurants).order(:name)
-    @restaurants = Restaurant.where(user: current_user)
+    
   end
   
   def new
@@ -32,10 +31,11 @@ class MenusController < ApplicationController
     @menus = Menu.all.order(:name)
     @restaurants = Restaurant.where(user: current_user)
   end
-
+  
   def update
     aMenu = Menu.find(params[:id])
     aMenu.name = menu_params[:name]
+    aMenu.restaurant = Restaurant.find(menu_params[:restaurant])
 
     if aMenu.save
       flash[:notices] = ["Menu #{aMenu.name} modified successfully!"]
