@@ -66,6 +66,7 @@ class RestaurantsController < ApplicationController
   def show
     @API_KEY="AIzaSyBVcx5aK5IjGGrs2k3pJCiAtW2Y6T6C4Fs"
     @restaurant = Restaurant.find(params[:id])
+    # @orders = User.find(session[:userid]).order_carts.count
   end
 
   

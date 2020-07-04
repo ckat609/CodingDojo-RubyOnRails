@@ -1,1 +1,14 @@
-<h2>Welcome, <%= current_user.fname %>!</h2>
+<div class="restaurants">
+    <h2>Welcome, <%= current_user.fname %>!</h2>
+    <table class="table">
+        <tbody>
+            <% @restaurants.each do |restaurant| %>
+            <tr>
+                <td><a href="/restaurants/<%= restaurant.id%>"><%=restaurant.name%></a></td>
+                <td><%=restaurant.description%></td>
+                <td></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
