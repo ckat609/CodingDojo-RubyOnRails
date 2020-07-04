@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @restaurants= Restaurant.all.order(:name)
   end
   
   def edit

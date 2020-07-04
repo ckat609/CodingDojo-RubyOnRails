@@ -1,11 +1,12 @@
-<div class="row">
-    <div class="col col-sm-4">
-        <h2><%= @restaurant.name %></h2>
-        <h6><%= @restaurant.category.name %> cuisine</h6>
-        <h6><%= @restaurant.address %></h6>
-        <h6><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zipcode %></h6>
-        <p><%= @restaurant.description %></p>
-        <% if @restaurant.user == current_user %>
+<div class="restaurants">
+    <div class="row">
+        <div class="col col-sm-4">
+            <h2><%= @restaurant.name %></h2>
+            <h6><%= @restaurant.category.name %> cuisine</h6>
+            <h6><%= @restaurant.address %></h6>
+            <h6><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zipcode %></h6>
+            <p><%= @restaurant.description %></p>
+            <% if @restaurant.user == current_user %>
             <div class="row">
                 <div class="col">
                     <form action="/restaurants/<%= @restaurant.id %>" method="POST">
@@ -18,14 +19,31 @@
                     </form>
                 </div>
             </div>
-        <%end%>
+            <%end%>
+        </div>
+        <div class="col col-sm-8">
+            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=<%= @API_KEY %>&q=<%= @restaurant.name %>+<%= @restaurant.address %>,<%= @restaurant.city %>+<%= @restaurant.state %>+<%= @restaurant.zipcode %>" allowfullscreen>
+            </iframe>
+        </div>
     </div>
-    <div class="col col-sm-8">
-        <iframe
-            width="600"
-            height="450"
-            frameborder="0" style="border:0"
-            src="https://www.google.com/maps/embed/v1/place?key=<%= @API_KEY %>&q=<%= @restaurant.name %>+<%= @restaurant.address %>,<%= @restaurant.city %>+<%= @restaurant.state %>+<%= @restaurant.zipcode %>" allowfullscreen>
-        </iframe>
+    <h2>MENU</h2> <h2>Orders: <%= @orders%></h2>
+    <%@restaurant.menus.each do |m| %>
+            <h3><strong><%=m.name%></strong></h3>
+            <%m.dishtypes.each do |d| %>
+                <h5><%=d.name%></h5>
+                <%d.dishes.each do |di| %>
+                <hr>
+                    <p><%=di.name%></p>
+                    <form action="/users/<%= current_user.id%>/restaurants/<%= di.menu.restaurant_id%>/order_carts" method="post">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                    <input type="hidden" name="order[user_id]" value="<%= current_user.id%>">
+                    <input type="hidden" name="order[dish_id]" value="<%= di.id%>">
+                    <button class="btn btn-dark" type="submit" >Add to Cart</button>
+                    </form>
+                    <a class="btn btn-dark" href="/users/<%=current_user.id%>/order_carts">Go to Cart</a>
+                <hr>
+                <%end%>
+            <%end%>
+        <%end%>
     </div>
 </div>

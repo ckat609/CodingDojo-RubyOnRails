@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  get 'orders/index'
+
+  get 'carts/index'
+
+  get 'users/:user_id/order_carts' => 'order_carts#index'
+
+  get 'users/:user_id/order_carts/:id' => 'order_carts#show'
+
+  post 'users/:user_id/restaurants/:restaurant_id/order_carts' => 'order_carts#create'
+
+  delete 'users/:user_id/order_carts/:id' => 'order_carts#destroy'
+
+
   get 'menus/index'
 
   get 'menus/new'
